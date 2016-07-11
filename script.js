@@ -3,7 +3,9 @@ $(document).ready(function(){
   var isLit = false;
   $(".one").on("click", function(evt){
     evt.preventDefault();
+    console.log(this);
     isLit = highlight(".one", isLit);
+
   })
 
 

@@ -1,0 +1,104 @@
+.row, .column {
+  box-sizing: border-box;
+}
+
+.row {
+  border: 2px solid rebeccapurple;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.header > .column{
+  height: 25px;
+}
+.score > .column{
+  height: 50px;
+}
+.game > .column{
+  height: 400px;
+}
+.footer > .column{
+  height: 100px;
+}
+.column {
+  position: relative;
+  border: 2px solid tomato;
+  float: left;
+  text-align: center;
+}
+.column-1{
+  width: 100%;
+}
+.column-2{
+  width: 100%;
+}
+.first{
+  width: 33%;
+  display: flex;
+  flex-direction:column-reverse;
+}
+.second{
+  width: 33%;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.third{
+  width: 33%;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.column-6{
+  width: 20%;
+}
+.column-7{
+  width: 60%;
+}
+.column-8{
+  width: 20%;
+}
+.pole{
+  height: 80%;
+  width: 6%;
+  background-color: rgb(201, 122, 49);
+  margin: 0 auto;
+  position: absolute;
+  bottom: 0;
+  left: 47%;
+  z-index: -1;
+}
+
+.disc{
+  border-style: solid;
+  height: 50px;
+  width: 40%;
+  background-color: rgb(35, 15, 93);
+  margin: 5px auto;
+  z-index: 0;
+  border-radius: 5px;
+}
+.one{
+  width: 20%;
+}
+.two{
+width: 35%;
+}
+.three{
+width: 50%;
+}
+.four{
+width: 65%;
+display: none;
+}
+.five{
+  width: 80%;
+  display: none;
+}
+.tower-2>.disc{
+  display: none;
+}
+.tower-3>.disc{
+  display: none;
+}
