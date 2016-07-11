@@ -1,17 +1,17 @@
 $(document).ready(function(){
-  // $("body").css("background", "red");
   var isLit = false;
   $(".one").on("click", function(evt){
     var selectedColumn = ".first";
     var selectedDisk = "one";
     evt.preventDefault();
-    isLit = highlight(".one", isLit);
+    isLit = highlight(selectedDisk, isLit);
     discPreview(selectedColumn, selectedDisk);
   })
 
 
 })
 function highlight(discNumber, isLit){
+  discNumber = "." + discNumber;
   if (isLit){
     $(discNumber).css("border-color", "rgb(35, 15, 93)");
     return false;
@@ -36,16 +36,15 @@ function discPreview(selectedColumn, selectedDisk){
     optionTwo = ".second";
   }
   $(optionOne).on("mouseenter", function(){
-    var newDisc =  $("<div class='disc one preview'></div>");
-    $(".tower-2").append(newDisc);
+    var newDisc =  $("<div class='disc " + selectedDisk + " preview'></div>");
+    $(optionOne).append(newDisc);
     $(optionOne).on("mouseleave", function(){
       $(".disc.one.preview").remove();
     })
   })
-
   $(optionTwo).on("mouseenter", function(){
-    var newDisc = $("<div class='disc one preview'></div>");
-    $(".tower-3").append(newDisc);
+    var newDisc =  $("<div class='disc " + selectedDisk + " preview'></div>");
+    $(optionTwo).append(newDisc);
     $(optionTwo).on("mouseleave", function(){
       $(".disc.one.preview").remove();
     })
