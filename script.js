@@ -94,6 +94,9 @@ function diskPreview(selectedTower, selectedDisk){
   $(optionTwo).on("mouseleave", function(){
     $(nextLocationTwo).toggle();
   })
+  $(".game").on("click", function(){
+    console.log("next phase");
+  })
 }
 function diskMove(selectedTower, selectedDisk){
 }
