@@ -1,47 +1,30 @@
 $(document).ready(function(){
   var isLit = false;
   var startingDisks=4;
-
-  $(".one").on("click", function(){
+  var topDiskOne=".one";
+  var topDiskTwo="";
+  var topDiskThree="";
+  $(".first").on("click", function(){
     var selectedTower = ".first";
-    var selectedDisk = ".one";
-    isLit = highlight(selectedTower, selectedDisk, isLit);
+    isLit = highlight(selectedTower, isLit);
     if(isLit){
-      diskPreview(selectedTower, selectedDisk);
+      diskPreview(selectedTower, isLit);
     }
   })
 
-  $(".two").on("click", function(){
-    var selectedTower = ".first";
-    var selectedDisk = ".two";
-    isLit = highlight(selectedTower, selectedDisk, isLit);
+  $(".second").on("click", function(){
+    var selectedTower = ".second";
+    isLit = highlight(selectedTower, isLit);
     if(isLit){
-      diskPreview(selectedTower, selectedDisk);
+      diskPreview(selectedTower, isLit);
     }
   })
 
-  $(".three").on("click", function(){
-    var selectedTower = ".first";
-    var selectedDisk = ".three";
-    isLit = highlight(selectedTower, selectedDisk, isLit);
+  $(".third").on("click", function(){
+    var selectedTower = ".third";
+    isLit = highlight(selectedTower, isLit);
     return
   })
-
-  $(".four").on("click", function(){
-    var selectedTower = ".first";
-    var selectedDisk = ".four";
-    isLit = highlight(selectedTower, selectedDisk, isLit);
-    }
-  })
-
-  $(".five").on("click", function(){
-    var selectedTower = ".first";
-    var selectedDisk = ".five";
-    isLit = highlight(selectedTower, selectedDisk, isLit);
-  })
-  if(isLit){
-    diskPreview(selectedTower, selectedDisk);
-  }
 
   $(".up").on("click", function(){
     startingDisks = difficulty("up", startingDisks);
@@ -55,8 +38,10 @@ $(document).ready(function(){
     reset();
   })
 })
-function highlight(selectedTower, selectedDisk, isLit){
-  var location = selectedTower + " " + selectedDisk;
+function highlight(selectedTower, isLit){
+  var disk = getTopDisk(selectedTower, topDiskOne, topDiskTwo, topDiskThree);
+  var location = selectedTower + " " + disk;
+
   if (isLit){
     $(location).removeClass("highlight");
     return false;
@@ -67,7 +52,7 @@ function highlight(selectedTower, selectedDisk, isLit){
   }
 }
 
-function diskPreview(selectedTower, selectedDisk){
+function diskPreview(selectedTower, isLit){
   if (selectedTower==".first"){
     optionOne = ".second";
     optionTwo = ".third";
@@ -80,13 +65,15 @@ function diskPreview(selectedTower, selectedDisk){
     optionOne = ".first";
     optionTwo = ".second";
   }
-  var nextLocationOne = optionOne + " " + selectedDisk;
-  var nextLocationTwo = optionTwo + " " + selectedDisk;
+  var highlightedDisk = getTopDisk(selectedTower);
+  var nextLocationOne = optionOne + " " + highlightedDisk;
+  var nextLocationTwo = optionTwo + " " + highlightedDisk;
   $(nextLocationOne).addClass("preview");
   $(nextLocationTwo).addClass("preview");
   $(optionOne).on("mouseenter", function(){
-    console.log(selectedDisk);
-    $(nextLocationOne).toggle();
+    if(isLit){
+      $(nextLocationOne).toggle();
+    }
   })
   $(optionOne).on("mouseleave", function(){
     $(nextLocationOne).toggle();
@@ -97,11 +84,20 @@ function diskPreview(selectedTower, selectedDisk){
   $(optionTwo).on("mouseleave", function(){
     $(nextLocationTwo).toggle();
   })
-  $(".game").on("click", function(){
-    console.log("next phase");
-  })
 }
 function diskMove(selectedTower, selectedDisk){
+}
+function getTopDisk(selectedTower, topDiskOne, topDiskTwo, topDiskThree){
+  if(selectedTower==".first"){
+    console.log(topDiskOne)
+    return topDiskOne;
+  }
+  else if(selectedTower==".second"){
+    return topDiskTwo;
+  }
+  else if(selectedTower==".third"){
+    return topDiskThree;
+  }
 }
 function difficulty(change, startingDisks){
   if(change=="up"){
