@@ -36,17 +36,17 @@
   width: 100%;
 }
 .first{
-  width: 33%;
+  width: 33.33%;
   display: flex;
   flex-direction:column-reverse;
 }
 .second{
-  width: 33%;
+  width: 33.33%;
   display: flex;
   flex-direction: column-reverse;
 }
 .third{
-  width: 33%;
+  width: 33.33%;
   display: flex;
   flex-direction: column-reverse;
 }
@@ -70,7 +70,7 @@
   z-index: -10;
 }
 
-.disc{
+.disk{
   border-style: solid;
   height: 50px;
   width: 40%;
@@ -90,12 +90,13 @@ width: 50%;
 }
 .four{
 width: 65%;
-display: none;
 }
 .five{
   width: 80%;
-  display: none;
 }
 .preview{
   opacity: 0.5;
+}
+.button{
+
 }
