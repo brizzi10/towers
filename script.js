@@ -1,16 +1,18 @@
 $(document).ready(function(){
-  var isLit = false;
   var startingDisks=4;
   var towerOne={location:".first", topDisk:".one", totalDisks:startingDisks, highlighted:false};
-  var towerTwo={location:".second", topDisk:"", totalDisks: 0, highlighted:false};
+  var towerTwo={location:".second ", topDisk:"", totalDisks: 0, highlighted:false};
   var towerThree={location:".third", topdisk:"", totalDisks: 0, highlighted: false};
 
   $(".first").on("click", function(){
     var selectedTower = towerOne;
-    isLit = highlight(selectedTower);
-    if(isLit){
-      diskPreview(selectedTower);
+    if(selectedTower.highlighted){
+      selectedTower.highlighted = highlight(selectedTower);
     }
+    else{
+      selectedTower.highlighted = highlight(selectedTower);
+    }
+    diskPreview(selectedTower, towerOne, towerTwo, towerThree);
   })
 
   $(".second").on("click", function(){
@@ -42,9 +44,8 @@ $(document).ready(function(){
 
 
 function highlight(selectedTower){
-  isLit= selectedTower.highlighted;
-  console.log(islit);
-  if (isLit){
+  var location = selectedTower.location + " " + selectedTower.topDisk;
+  if (selectedTower.highlighted){
     $(location).removeClass("highlight");
     return false;
   }
@@ -54,37 +55,53 @@ function highlight(selectedTower){
   }
 }
 
-function diskPreview(selectedTower, isLit){
-  if (selectedTower==".first"){
-    optionOne = ".second";
-    optionTwo = ".third";
+function diskPreview(selectedTower, towerOne, towerTwo, towerThree){
+  if (selectedTower==towerOne){
+    optionOne = towerTwo.location;
+    optionTwo = towerThree.location;
   }
-  else if(selectedTower==".second"){
-    optionOne = ".first";
-    optionTwo = ".third";
+  else if(selectedTower==towerTwo){
+    optionOne = towerOne.location;
+    optionTwo = towerThree.location;
   }
   else {
-    optionOne = ".first";
-    optionTwo = ".second";
+    optionOne = towerOne.location;
+    optionTwo = towerTwo.location;
   }
-  var nextLocationOne = optionOne + " " + highlightedDisk;
-  var nextLocationTwo = optionTwo + " " + highlightedDisk;
+
+  var nextLocationOne = optionOne + " " + selectedTower.topDisk;
+  var nextLocationTwo = optionTwo + " " + selectedTower.topDisk;
   $(nextLocationOne).addClass("preview");
   $(nextLocationTwo).addClass("preview");
-  $(optionOne).on("mouseenter", function(){
-    if(isLit){
+  console.log(selectedTower.highlighted);
+  if(selectedTower.highlighted){
+    $(optionOne).on("mouseenter", function(){
       $(nextLocationOne).toggle();
-    }
-  })
-  $(optionOne).on("mouseleave", function(){
-    $(nextLocationOne).toggle();
-  })
-  $(optionTwo).on("mouseenter", function(){
-    $(nextLocationTwo).toggle();
-  })
-  $(optionTwo).on("mouseleave", function(){
-    $(nextLocationTwo).toggle();
-  })
+    })
+    $(optionOne).on("mouseleave", function(){
+      $(nextLocationOne).toggle();
+    })
+    $(optionTwo).on("mouseenter", function(){
+      $(nextLocationTwo).toggle();
+    })
+    $(optionTwo).on("mouseleave", function(){
+      $(nextLocationTwo).toggle();
+    })
+  }
+  else {
+    $(optionOne).off("mouseenter", function(){
+      $(nextLocationOne).toggle();
+    })
+    $(optionOne).off("mouseleave", function(){
+      $(nextLocationOne).toggle();
+    })
+    $(optionTwo).off("mouseenter", function(){
+      $(nextLocationTwo).toggle();
+    })
+    $(optionTwo).off("mouseleave", function(){
+      $(nextLocationTwo).toggle();
+    })
+  }
 }
 function diskMove(selectedTower, selectedDisk){
 }
