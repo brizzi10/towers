@@ -1,29 +1,29 @@
 $(document).ready(function(){
   var isLit = false;
   var startingDisks=4;
-  var topDiskOne=".one";
-  var topDiskTwo="";
-  var topDiskThree="";
+  var towerOne={location:".first", topDisk:".one", totalDisks:startingDisks, highlighted:false};
+  var towerTwo={location:".second", topDisk:"", totalDisks: 0, highlighted:false};
+  var towerThree={location:".third", topdisk:"", totalDisks: 0, highlighted: false};
+
   $(".first").on("click", function(){
-    var selectedTower = ".first";
-    isLit = highlight(selectedTower, isLit);
+    var selectedTower = towerOne;
+    isLit = highlight(selectedTower);
     if(isLit){
-      diskPreview(selectedTower, isLit);
+      diskPreview(selectedTower);
     }
   })
 
   $(".second").on("click", function(){
-    var selectedTower = ".second";
-    isLit = highlight(selectedTower, isLit);
+    var selectedTower = towerTwo;
+    isLit = highlight(selectedTower);
     if(isLit){
-      diskPreview(selectedTower, isLit);
+      diskPreview(selectedTower);
     }
   })
 
   $(".third").on("click", function(){
-    var selectedTower = ".third";
-    isLit = highlight(selectedTower, isLit);
-    return
+    var selectedTower = towerThree;
+    isLit = highlight(selectedTower);
   })
 
   $(".up").on("click", function(){
@@ -38,10 +38,12 @@ $(document).ready(function(){
     reset();
   })
 })
-function highlight(selectedTower, isLit){
-  var disk = getTopDisk(selectedTower, topDiskOne, topDiskTwo, topDiskThree);
-  var location = selectedTower + " " + disk;
 
+
+
+function highlight(selectedTower){
+  isLit= selectedTower.highlighted;
+  console.log(islit);
   if (isLit){
     $(location).removeClass("highlight");
     return false;
@@ -65,7 +67,6 @@ function diskPreview(selectedTower, isLit){
     optionOne = ".first";
     optionTwo = ".second";
   }
-  var highlightedDisk = getTopDisk(selectedTower);
   var nextLocationOne = optionOne + " " + highlightedDisk;
   var nextLocationTwo = optionTwo + " " + highlightedDisk;
   $(nextLocationOne).addClass("preview");
@@ -87,18 +88,7 @@ function diskPreview(selectedTower, isLit){
 }
 function diskMove(selectedTower, selectedDisk){
 }
-function getTopDisk(selectedTower, topDiskOne, topDiskTwo, topDiskThree){
-  if(selectedTower==".first"){
-    console.log(topDiskOne)
-    return topDiskOne;
-  }
-  else if(selectedTower==".second"){
-    return topDiskTwo;
-  }
-  else if(selectedTower==".third"){
-    return topDiskThree;
-  }
-}
+
 function difficulty(change, startingDisks){
   if(change=="up"){
     if(startingDisks<4){
