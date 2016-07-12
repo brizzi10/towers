@@ -8,7 +8,6 @@ $(document).ready(function(){
     var selectedTower = towerOne;
     selectedTower.highlighted = highlight(selectedTower);
     diskPreview(selectedTower, towerOne, towerTwo, towerThree);
-    diskMove(selectedTower);
   })
 
   $(".second").on("click", function(){
@@ -32,8 +31,6 @@ $(document).ready(function(){
     reset();
   })
 })
-
-
 
 function highlight(selectedTower){
   var location = selectedTower.location + " " + selectedTower.topDisk;
@@ -69,30 +66,40 @@ function diskPreview(selectedTower, towerOne, towerTwo, towerThree){
   if(selectedTower.highlighted){
     $(optionOne).on("mouseenter", function(){
       $(nextLocationOne).toggle();
+      $(this).on("click", function(){
+        diskMove(selectedTower.topDisk, nextLocationOne);
+      })
     })
     $(optionOne).on("mouseleave", function(){
       $(nextLocationOne).toggle();
     })
     $(optionTwo).on("mouseenter", function(){
       $(nextLocationTwo).toggle();
+      $(this).on("click", function(){
+        diskMove(selectedTower.topDisk, nextLocationTwo);
+      })
     })
     $(optionTwo).on("mouseleave", function(){
       $(nextLocationTwo).toggle();
     })
   }
   else {
-    $(nextLocationOne).removeClass("preview");
-    $(nextLocationTwo).removeClass("preview");
-    $(optionOne).off("mouseenter");
-    $(optionOne).off("mouseleave");
-    $(optionTwo).off("mouseenter");
-    $(optionTwo).off("mouseleave");
+    previewOff(nextLocationOne, nextLocationTwo);
   }
 }
-function diskMove(selectedTower){
-
+function diskMove(selectedTower, destination){
+  $(selectedTower.topDisk).toggle();
+  $(destination).removeClass("preview");
 }
+function previewOff(nextLocationOne, nextLocationTwo){
+  $(nextLocationOne).removeClass("preview");
+  $(nextLocationTwo).removeClass("preview");
 
+  $(optionOne).off("mouseenter");
+  $(optionOne).off("mouseleave");
+  $(optionTwo).off("mouseenter");
+  $(optionTwo).off("mouseleave");
+}
 function difficulty(change, startingDisks){
   if(change=="up"){
     if(startingDisks<4){
