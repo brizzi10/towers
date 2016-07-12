@@ -79,6 +79,12 @@
   z-index: 1;
   border-radius: 5px;
 }
+.tower-2{
+display: none;
+}
+.tower-3{
+display: none;
+}
 .one{
   width: 20%;
 }

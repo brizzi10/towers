@@ -1,6 +1,8 @@
 $(document).ready(function(){
   var isLit = false;
-  startingDisks=4;
+  var selectedDisk;
+  var selectedColumn;
+  var startingDisks=4;
   $(".up").on("click", function(){
     startingDisks = difficulty("up", startingDisks);
   })
@@ -9,41 +11,43 @@ $(document).ready(function(){
   })
   $(".reset").on("click", function(){
     startingDisks = 4;
+    isLit = false;
     reset();
   })
   $(".one").on("click", function(){
-    var selectedColumn = ".first";
-    var selectedDisk = "one";
+    selectedColumn = ".first";
+    selectedDisk = "one";
     isLit = highlight(selectedDisk, isLit);
-    diskPreview(selectedColumn, selectedDisk);
+    if(isLit){
+      diskPreview(selectedColumn, selectedDisk);
+    }
+    else(){
+      
+    }
   })
 
   $(".two").on("click", function(){
-    var selectedColumn = ".first";
-    var selectedDisk = "two";
+    selectedColumn = ".first";
+    selectedDisk = "two";
     isLit = highlight(selectedDisk, isLit);
-    diskPreview(selectedColumn, selectedDisk);
   })
 
   $(".three").on("click", function(){
-    var selectedColumn = ".first";
-    var selectedDisk = "three";
+    selectedColumn = ".first";
+    selectedDisk = "three";
     isLit = highlight(selectedDisk, isLit);
-    diskPreview(selectedColumn, selectedDisk);
   })
 
   $(".four").on("click", function(){
-    var selectedColumn = ".first";
-    var selectedDisk = "four";
+    selectedColumn = ".first";
+    selectedDisk = "four";
     isLit = highlight(selectedDisk, isLit);
-    diskPreview(selectedColumn, selectedDisk);
   })
 
   $(".five").on("click", function(){
-    var selectedColumn = ".first";
-    var selectedDisk = "five";
+    selectedColumn = ".first";
+    selectedDisk = "five";
     isLit = highlight(selectedDisk, isLit);
-    diskPreview(selectedColumn, selectedDisk);
   })
 
 
@@ -52,7 +56,6 @@ function highlight(selectedDisk, isLit){
   diskNumber = "." + selectedDisk;
   if (isLit){
     $(diskNumber).css("border-color", "rgb(35, 15, 93)");
-
     return false;
   }
   else{
