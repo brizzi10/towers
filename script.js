@@ -6,21 +6,13 @@ $(document).ready(function(){
 
   $(".first").on("click", function(){
     var selectedTower = towerOne;
-    if(selectedTower.highlighted){
-      selectedTower.highlighted = highlight(selectedTower);
-    }
-    else{
-      selectedTower.highlighted = highlight(selectedTower);
-    }
+    selectedTower.highlighted = highlight(selectedTower);
     diskPreview(selectedTower, towerOne, towerTwo, towerThree);
+    diskMove(selectedTower);
   })
 
   $(".second").on("click", function(){
     var selectedTower = towerTwo;
-    isLit = highlight(selectedTower);
-    if(isLit){
-      diskPreview(selectedTower);
-    }
   })
 
   $(".third").on("click", function(){
@@ -73,7 +65,7 @@ function diskPreview(selectedTower, towerOne, towerTwo, towerThree){
   var nextLocationTwo = optionTwo + " " + selectedTower.topDisk;
   $(nextLocationOne).addClass("preview");
   $(nextLocationTwo).addClass("preview");
-  console.log(selectedTower.highlighted);
+
   if(selectedTower.highlighted){
     $(optionOne).on("mouseenter", function(){
       $(nextLocationOne).toggle();
@@ -89,21 +81,16 @@ function diskPreview(selectedTower, towerOne, towerTwo, towerThree){
     })
   }
   else {
-    $(optionOne).off("mouseenter", function(){
-      $(nextLocationOne).toggle();
-    })
-    $(optionOne).off("mouseleave", function(){
-      $(nextLocationOne).toggle();
-    })
-    $(optionTwo).off("mouseenter", function(){
-      $(nextLocationTwo).toggle();
-    })
-    $(optionTwo).off("mouseleave", function(){
-      $(nextLocationTwo).toggle();
-    })
+    $(nextLocationOne).removeClass("preview");
+    $(nextLocationTwo).removeClass("preview");
+    $(optionOne).off("mouseenter");
+    $(optionOne).off("mouseleave");
+    $(optionTwo).off("mouseenter");
+    $(optionTwo).off("mouseleave");
   }
 }
-function diskMove(selectedTower, selectedDisk){
+function diskMove(selectedTower){
+
 }
 
 function difficulty(change, startingDisks){
