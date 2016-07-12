@@ -1,8 +1,48 @@
 $(document).ready(function(){
   var isLit = false;
-  var selectedDisk;
-  var selectedTower;
   var startingDisks=4;
+
+  $(".one").on("click", function(){
+    var selectedTower = ".first";
+    var selectedDisk = ".one";
+    isLit = highlight(selectedTower, selectedDisk, isLit);
+    if(isLit){
+      diskPreview(selectedTower, selectedDisk);
+    }
+  })
+
+  $(".two").on("click", function(){
+    var selectedTower = ".first";
+    var selectedDisk = ".two";
+    isLit = highlight(selectedTower, selectedDisk, isLit);
+    if(isLit){
+      diskPreview(selectedTower, selectedDisk);
+    }
+  })
+
+  $(".three").on("click", function(){
+    var selectedTower = ".first";
+    var selectedDisk = ".three";
+    isLit = highlight(selectedTower, selectedDisk, isLit);
+    return
+  })
+
+  $(".four").on("click", function(){
+    var selectedTower = ".first";
+    var selectedDisk = ".four";
+    isLit = highlight(selectedTower, selectedDisk, isLit);
+    }
+  })
+
+  $(".five").on("click", function(){
+    var selectedTower = ".first";
+    var selectedDisk = ".five";
+    isLit = highlight(selectedTower, selectedDisk, isLit);
+  })
+  if(isLit){
+    diskPreview(selectedTower, selectedDisk);
+  }
+
   $(".up").on("click", function(){
     startingDisks = difficulty("up", startingDisks);
   })
@@ -14,44 +54,6 @@ $(document).ready(function(){
     isLit = false;
     reset();
   })
-  $(".one").on("click", function(){
-    selectedTower = ".first";
-    selectedDisk = ".one";
-    isLit = highlight(selectedTower, selectedDisk, isLit);
-
-    if(isLit){
-      diskPreview(selectedTower, selectedDisk);
-    }
-  })
-
-  $(".two").on("click", function(){
-    selectedTower = ".first";
-    selectedDisk = ".two";
-    isLit = highlight(selectedTower, selectedDisk, isLit);
-  })
-
-  $(".three").on("click", function(){
-    selectedTower = ".first";
-    selectedDisk = ".three";
-    isLit = highlight(selectedTower, selectedDisk, isLit);
-  })
-
-  $(".four").on("click", function(){
-    selectedTower = "first";
-    selectedDisk = ".four";
-    isLit = highlight(selectedTower, selectedDisk, isLit);
-  })
-
-  $(".five").on("click", function(){
-    selectedTower = ".first";
-    selectedDisk = ".five";
-    isLit = highlight(selectedTower, selectedDisk, isLit);
-  })
-  if(isLit){
-    diskPreview(selectedTower, selectedDisk);
-  }
-
-
 })
 function highlight(selectedTower, selectedDisk, isLit){
   var location = selectedTower + " " + selectedDisk;
@@ -70,7 +72,7 @@ function diskPreview(selectedTower, selectedDisk){
     optionOne = ".second";
     optionTwo = ".third";
   }
-  else if(selectedTower=="second"){
+  else if(selectedTower==".second"){
     optionOne = ".first";
     optionTwo = ".third";
   }
@@ -83,6 +85,7 @@ function diskPreview(selectedTower, selectedDisk){
   $(nextLocationOne).addClass("preview");
   $(nextLocationTwo).addClass("preview");
   $(optionOne).on("mouseenter", function(){
+    console.log(selectedDisk);
     $(nextLocationOne).toggle();
   })
   $(optionOne).on("mouseleave", function(){
@@ -125,10 +128,22 @@ function difficulty(change, startingDisks){
   }
 }
 function reset(startingDisks){
-  $(".disk.one").show();
-  $(".disk.two").show();
-  $(".disk.three").show();
-  $(".disk.four").show();
-  $(".disk.five").show();
+  $(".first .disk.one").show();
+  $(".first .disk.two").show();
+  $(".first .disk.three").show();
+  $(".first .disk.four").show();
+  $(".first .disk.five").show();
+
+  $(".second .disk.one").hide();
+  $(".second .disk.two").hide();
+  $(".second .disk.three").hide();
+  $(".second .disk.four").hide();
+  $(".second .disk.five").hide();
+
+  $(".second .disk.one").hide();
+  $(".second .disk.two").hide();
+  $(".second .disk.three").hide();
+  $(".second .disk.four").hide();
+  $(".second .disk.five").hide();
   return;
 }
