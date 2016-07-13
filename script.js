@@ -50,13 +50,15 @@ $(document).ready(function(){
             gameState="initial";
           }
           else if(gameState=="preview"){
-            destinationTower = towerOne;
-            diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
-            gameState="initial";
-            updateTowers(selectedTower, destinationTower);
-            topDiskValue(towerOne);
-            topDiskValue(towerTwo);
-            topDiskValue(towerThree);
+            if(selectedTower.topDiskValue<towerOne.topDiskValue || towerOne.topDiskValue==0){
+              destinationTower = towerOne;
+              diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
+              gameState="initial";
+              updateTowers(selectedTower, destinationTower);
+              topDiskValue(towerOne);
+              topDiskValue(towerTwo);
+              topDiskValue(towerThree);
+            }
           }
         })
 
@@ -72,13 +74,15 @@ $(document).ready(function(){
             gameState="initial";
           }
           else if(gameState=="preview"){
-            destinationTower = towerTwo;
-            diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
-            gameState="initial";
-            updateTowers(selectedTower, destinationTower);
-            topDiskValue(towerOne);
-            topDiskValue(towerTwo);
-            topDiskValue(towerThree);
+            if(selectedTower.topDiskValue<towerTwo.topDiskValue || towerTwo.topDiskValue==0){
+              destinationTower = towerTwo;
+              diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
+              gameState="initial";
+              updateTowers(selectedTower, destinationTower);
+              topDiskValue(towerOne);
+              topDiskValue(towerTwo);
+              topDiskValue(towerThree);
+            }
           }
         })
 
@@ -94,22 +98,24 @@ $(document).ready(function(){
             gameState="initial";
           }
           else if(gameState=="preview"){
-            destinationTower = towerThree;
-            diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
-            gameState="initial";
-            updateTowers(selectedTower, destinationTower);
-            topDiskValue(towerOne);
-            topDiskValue(towerTwo);
-            topDiskValue(towerThree);
-            if(startingDisks == towerThree.totalDisks){
-              console.log("WINNER WOOOOOOO!");
+            if(selectedTower.topDiskValue<towerThree.topDiskValue || towerThree.topDiskValue==0){
+              destinationTower = towerThree;
+              diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
+              gameState="initial";
+              updateTowers(selectedTower, destinationTower);
+              topDiskValue(towerOne);
+              topDiskValue(towerTwo);
+              topDiskValue(towerThree);
+              if(startingDisks == towerThree.totalDisks){
+                console.log("WINNER WOOOOOOO!");
+              }
             }
           }
         })
 
         $(".first").on("mouseenter", function(){
           if(gameState=="preview" && !(selectedTower==towerOne)){
-            if(selectedTower.topDiskValue<towerOne.topDiskValue){
+            if(selectedTower.topDiskValue<towerOne.topDiskValue || towerOne.topDiskValue==0){
               var previewDisk = towerOne.location + " " + selectedTower.topDisk;
               $(previewDisk).toggle();
             }
@@ -118,7 +124,7 @@ $(document).ready(function(){
 
         $(".first").on("mouseleave", function(){
           if(gameState=="preview" && !(selectedTower==towerOne)){
-            if(selectedTower.topDiskValue<towerOne.topDiskValue){
+            if(selectedTower.topDiskValue<towerOne.topDiskValue || towerOne.topDiskValue==0){
               var previewDisk = towerOne.location + " " + selectedTower.topDisk;
               $(previewDisk).toggle();
             }
@@ -169,7 +175,7 @@ $(document).ready(function(){
           startingDisks =difficulty("down", startingDisks, towerOne, towerTwo, towerThree);
         })
         $(".reset").on("click", function(){
-          startingDisks = 4;
+          startingDisks = 5;
           isLit = false;
           reset();
           initialTowers(startingDisks, towerOne, towerTwo, towerThree);
@@ -287,11 +293,11 @@ $(document).ready(function(){
       }
 
       //resets the game board to its original state(all plates on leftmost tower)
-      function reset(startingDisks){
+      function reset(selectionTower, destinationTower){
         startingDisks = 5;
         gameState = "initial";
-        $(".body").removeClass("highlight");
-        $(".body").removeClass("preview");
+        $(".disk").removeClass("highlight");
+        $(".disk").removeClass("preview");
         $(".first .disk.one").show();
         $(".first .disk.two").show();
         $(".first .disk.three").show();
@@ -318,6 +324,7 @@ $(document).ready(function(){
         towerOne.fifthDisk=".five";
         towerOne.totalDisks=startingDisks;
         towerOne.highlighted=false;
+        towerOne.topDiskValue=1;
 
         towerTwo.topDisk="";
         towerTwo.secondDisk="";
@@ -326,6 +333,7 @@ $(document).ready(function(){
         towerTwo.fifthDisk="";
         towerTwo.totalDisks=0;
         towerTwo.highlighted=false;
+        towerTwo.topDiskValue=0;
 
         towerThree.topDisk="";
         towerThree.secondDisk="";
@@ -334,4 +342,5 @@ $(document).ready(function(){
         towerThree.fifthDisk="";
         towerThree.totalDisks=0;
         towerThree.highlighted=false;
+        towerThree.topDiskValue=0;
       }
