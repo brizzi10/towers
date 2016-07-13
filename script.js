@@ -64,43 +64,45 @@ $(document).ready(function(){
 
         $(".first").on("mouseenter", function(){
           if(gameState=="preview" && !(selectedTower==towerOne)){
-            console.log("1 is turned on");
-            $(towerOne.topdisk).toggle();
+            var previewDisk = towerOne.location + " " + selectedTower.topDisk;
+            $(previewDisk).toggle();
           }
         })
 
         $(".first").on("mouseleave", function(){
           if(gameState=="preview" && !(selectedTower==towerOne)){
-            console.log("1 is turned on");
-            $(towerOne.topdisk).toggle();
+            var previewDisk = towerOne.location + " " + selectedTower.topDisk;
+            $(previewDisk).toggle();
           }
         })
 
         $(".second").on("mouseenter", function(){
           if(gameState=="preview" && !(selectedTower==towerTwo)){
-            $(towerTwo.topdisk).toggle();
-            console.log("2 is turned on");
+            var previewDisk = towerTwo.location + " " + selectedTower.topDisk;
+            console.log(previewDisk);
+            $(previewDisk).toggle();
           }
         })
 
         $(".second").on("mouseleave", function(){
           if (gameState=="preview" && !(selectedTower==towerTwo)){
-            console.log("2 is turned on");
-            $(towerTwo.topdisk).toggle();
+            var previewDisk = towerTwo.location + " " + selectedTower.topDisk;
+            $(previewDisk).toggle();
           }
         })
 
         $(".third").on("mouseenter", function(){
           if(gameState=="preview" && !(selectedTower==towerThree)){
-            console.log("3 is turned on");
-            $(towerThree.topdisk).toggle();
+            var previewDisk = towerThree.location + " " + selectedTower.topDisk;
+            console.log(previewDisk);
+            $(previewDisk).toggle();
           }
         })
 
         $(".third").on("mouseleave", function(){
           if (gameState=="preview" && !(selectedTower==towerThree)){
-            console.log("3 is turned on");
-            $(towerThree.topdisk).toggle();
+            var previewDisk = towerThree.location + " " + selectedTower.topDisk;
+            $(previewDisk).toggle();
           }
         })
 
