@@ -32,17 +32,23 @@ $(document).ready(function(){
 //one click event for each tower, selectedTower set on click
   $(".first").on("click", function(){
     var selectedTower = towerOne;
+    turnOff();
     selectedTower.highlighted = highlight(selectedTower);
     diskPreview(selectedTower, towerOne, towerTwo, towerThree);
   })
 
   $(".second").on("click", function(){
     var selectedTower = towerTwo;
+    turnOff();
+    selectedTower.highlighted = highlight(selectedTower);
+    diskPreview(selectedTower, towerOne, towerTwo, towerThree);
   })
 
   $(".third").on("click", function(){
-    var selectedTower = towerThree;
-    isLit = highlight(selectedTower);
+    var selectedTower = towerTwo;
+    turnOff();
+    selectedTower.highlighted = highlight(selectedTower);
+    diskPreview(selectedTower, towerOne, towerTwo, towerThree);
   })
 //one click event for each button on interface
   $(".up").on("click", function(){
@@ -190,6 +196,13 @@ function difficulty(change, startingDisks){
     }
   }
 }
+//function to turn off the other 2 initial event listeners
+function turnOff(){
+    $(".first").off("click");
+    $(".second").off("click");
+    $(".third").off("click");
+}
+
 //resets the game board to its original state(all plates on leftmost tower)
 function reset(startingDisks){
   $(".first .disk.one").show();
