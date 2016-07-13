@@ -32,6 +32,7 @@ $(document).ready(function(){
 //one click event for each tower, selectedTower set on click
   $(".first").on("click", function(){
     var selectedTower = towerOne;
+    //once a tower is selected, the other on click listeners need to turn off as well
     turnOff();
     selectedTower.highlighted = highlight(selectedTower);
     diskPreview(selectedTower, towerOne, towerTwo, towerThree);
@@ -45,7 +46,7 @@ $(document).ready(function(){
   })
 
   $(".third").on("click", function(){
-    var selectedTower = towerTwo;
+    var selectedTower = towerThree;
     turnOff();
     selectedTower.highlighted = highlight(selectedTower);
     diskPreview(selectedTower, towerOne, towerTwo, towerThree);
@@ -93,11 +94,13 @@ function diskPreview(selectedTower, towerOne, towerTwo, towerThree){
   //combining strings for jquery selector
   var nextLocationOne = optionOne + " " + selectedTower.topDisk;
   var nextLocationTwo = optionTwo + " " + selectedTower.topDisk;
-  //adds the preview class to the relevant tower
-  $(nextLocationOne).addClass("preview");
-  $(nextLocationTwo).addClass("preview");
+
   //the preview disk div only toggles when the selectedTower is highlighted
   if(selectedTower.highlighted){
+    //adds the preview class to the relevant tower
+    $(nextLocationOne).addClass("preview");
+    $(nextLocationTwo).addClass("preview");
+
     $(optionOne).on("mouseenter", function(){
       $(nextLocationOne).toggle();
       //event listener inside mouseenter, since this is when a click to move disk would occur
@@ -137,7 +140,7 @@ function diskMove(selectedTower, destination, towerOne, towerTwo, towerThree){
   $(originalDisk).toggle();
   $(originalDisk).removeClass("highlight");
   //reveals the moved disk by removing the preview css
-  $(destination).removeClass("preview");
+  // $(destination).removeClass("preview");
   //tower objects updated: original loses disk and highlight
   updateTowers(selectedTower, destination);
 }
@@ -148,17 +151,18 @@ function updateTowers(selectedTower, destinationTower){
   selectedTower.totalDisks--;
   destinationTower.totalDisks++;
 
-  selectedTower.fifthDisk = "";
-  selectedTower.fourthDisk = selectedTower.fifthDisk;
-  selectedTower.thirdDisk = selectedTower.fourthDisk;
-  selectedTower.secondDisk = selectedTower.thirdDisk;
-  selectedTower.topDisk = selectedTower.secondDisk;
-
   destinationTower.fifthDisk = destinationTower.fourthDisk;
   destinationTower.fourthDisk = destinationTower.thirdDisk;
   destinationTower.thirdDisk = destinationTower.secondDisk;
   destinationTower.secondDisk = destinationTower.topDisk;
-  destinationTower.topDisk=selectedTower.topDisk;
+  destinationTower.topDisk = selectedTower.topDisk;
+
+  selectedTower.topDisk = selectedTower.secondDisk;
+  selectedTower.secondDisk = selectedTower.thirdDisk;
+  selectedTower.thirdDisk = selectedTower.fourthDisk;
+  selectedTower.fourthDisk = selectedTower.fifthDisk;
+  selectedTower.fifthDisk = "";
+
 }
 //function to turn off preview event listeners and remove the preview class from the optionOne and optionTwo divs
 function previewOff(nextLocationOne, nextLocationTwo){
