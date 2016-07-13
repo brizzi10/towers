@@ -36,33 +36,49 @@ $(document).ready(function(){
 
         //one click event for each tower, selectedTower set on click
         $(".first").on("click", function(){
-          if(gameState=="initial"){
+          if(gameState=="initial" && towerOne.totalDisks>0){
             selectedTower = towerOne;
             selectedTower.highlighted = highlight(selectedTower);
             gameState="preview";
             diskPreview(selectedTower, towerOne, towerTwo, towerThree);
           }
+          else if(gameState=="preview"){
+            destinationTower = towerOne;
+            diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
+            gameState=="initial";
+          }
         })
 
         $(".second").on("click", function(){
-          if(gameState=="initial"){
+          if(gameState=="initial" && towerTwo.totalDisks>0){
             selectedTower = towerTwo;
             selectedTower.highlighted = highlight(selectedTower);
             gameState=="preview";
             diskPreview(selectedTower, towerOne, towerTwo, towerThree);
           }
+          else if(gameState=="preview"){
+            destinationTower = towerTwo;
+            diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
+            gameState=="initial";
+          }
         })
 
         $(".third").on("click", function(){
-          if (gameState=="initial"){
+          if(gameState=="initial" && towerThree.totalDisks>0){
             selectedTower = towerThree;
             selectedTower.highlighted = highlight(selectedTower);
-            gameState=="preview"
+            gameState=="preview";
             diskPreview(selectedTower, towerOne, towerTwo, towerThree);
+          }
+          else if(gameState=="preview"){
+            destinationTower = towerThree;
+            diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
+            gameState=="initial";
           }
         })
 
         $(".first").on("mouseenter", function(){
+          console.log(gameState)
           if(gameState=="preview" && !(selectedTower==towerOne)){
             var previewDisk = towerOne.location + " " + selectedTower.topDisk;
             $(previewDisk).toggle();
@@ -77,9 +93,9 @@ $(document).ready(function(){
         })
 
         $(".second").on("mouseenter", function(){
+          console.log(gameState)
           if(gameState=="preview" && !(selectedTower==towerTwo)){
             var previewDisk = towerTwo.location + " " + selectedTower.topDisk;
-            console.log(previewDisk);
             $(previewDisk).toggle();
           }
         })
@@ -92,9 +108,9 @@ $(document).ready(function(){
         })
 
         $(".third").on("mouseenter", function(){
+          console.log(gameState)
           if(gameState=="preview" && !(selectedTower==towerThree)){
             var previewDisk = towerThree.location + " " + selectedTower.topDisk;
-            console.log(previewDisk);
             $(previewDisk).toggle();
           }
         })
@@ -106,7 +122,7 @@ $(document).ready(function(){
           }
         })
 
-        //one click event for each button on interface
+        //on click event for each button on interface
         $(".up").on("click", function(){
           startingDisks = difficulty("up", startingDisks);
         })
@@ -156,12 +172,13 @@ $(document).ready(function(){
         $(previewDiskTwo).addClass("preview");
       }
 
-      function diskMove(selectedTower, destination, towerOne, towerTwo, towerThree){
+      function diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree){
         var originalDisk = selectedTower.location + " " + selectedTower.topDisk;
+        var destinationDisk = destinationTower.location + " " + selectedTower.topDisk;
         //toggles the original disk off and removes highlight
         $(originalDisk).toggle();
         $(originalDisk).removeClass("highlight");
-        $(destination).removeClass("preview");
+        $(destinationDisk).removeClass("preview");
       }
       //function to update tower objects after move
       function updateTowers(selectedTower, destinationTower){
