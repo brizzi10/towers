@@ -38,9 +38,13 @@ $(document).ready(function(){
         $(".first").on("click", function(){
           if(gameState=="initial" && towerOne.totalDisks>0){
             selectedTower = towerOne;
-            selectedTower.highlighted = highlight(selectedTower);
+            highlight(selectedTower);
             gameState="preview";
             diskPreview(selectedTower, towerOne, towerTwo, towerThree);
+          }
+          else if(gameState=="preview" && selectedTower==towerOne){
+            highlight(selectedTower);
+            gameState="initial";
           }
           else if(gameState=="preview"){
             destinationTower = towerOne;
@@ -57,6 +61,10 @@ $(document).ready(function(){
             gameState="preview";
             diskPreview(selectedTower, towerOne, towerTwo, towerThree);
           }
+          else if(gameState=="preview" && selectedTower==towerTwo){
+            highlight(selectedTower);
+            gameState="initial";
+          }
           else if(gameState=="preview"){
             destinationTower = towerTwo;
             diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
@@ -66,11 +74,18 @@ $(document).ready(function(){
         })
 
         $(".third").on("click", function(){
+          if(startingDisks == towerThree.totalDisks){
+            console.log("WINNER WOOOOOOO!");
+          }
           if(gameState=="initial" && towerThree.totalDisks>0){
             selectedTower = towerThree;
             selectedTower.highlighted = highlight(selectedTower);
             gameState="preview";
             diskPreview(selectedTower, towerOne, towerTwo, towerThree);
+          }
+          else if(gameState=="preview" && selectedTower==towerThree){
+            highlight(selectedTower);
+            gameState="initial";
           }
           else if(gameState=="preview"){
             destinationTower = towerThree;
@@ -141,11 +156,11 @@ $(document).ready(function(){
         var location = selectedTower.location + " " + selectedTower.topDisk;
         if (selectedTower.highlighted){
           $(location).removeClass("highlight");
-          return false;
+          selectedTower.highlighted=false;
         }
         else{
           $(location).addClass("highlight");
-          return true;
+          selectedTower.highlighted=true;
         }
       }
       //function to create the disk preview image to show upcoming moves
