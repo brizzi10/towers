@@ -45,7 +45,8 @@ $(document).ready(function(){
           else if(gameState=="preview"){
             destinationTower = towerOne;
             diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
-            gameState=="initial";
+            gameState="initial";
+            updateTowers(selectedTower, destinationTower);
           }
         })
 
@@ -53,13 +54,14 @@ $(document).ready(function(){
           if(gameState=="initial" && towerTwo.totalDisks>0){
             selectedTower = towerTwo;
             selectedTower.highlighted = highlight(selectedTower);
-            gameState=="preview";
+            gameState="preview";
             diskPreview(selectedTower, towerOne, towerTwo, towerThree);
           }
           else if(gameState=="preview"){
             destinationTower = towerTwo;
             diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
-            gameState=="initial";
+            gameState="initial";
+            updateTowers(selectedTower, destinationTower);
           }
         })
 
@@ -67,18 +69,18 @@ $(document).ready(function(){
           if(gameState=="initial" && towerThree.totalDisks>0){
             selectedTower = towerThree;
             selectedTower.highlighted = highlight(selectedTower);
-            gameState=="preview";
+            gameState="preview";
             diskPreview(selectedTower, towerOne, towerTwo, towerThree);
           }
           else if(gameState=="preview"){
             destinationTower = towerThree;
             diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
-            gameState=="initial";
+            gameState="initial";
+            updateTowers(selectedTower, destinationTower);
           }
         })
 
         $(".first").on("mouseenter", function(){
-          console.log(gameState)
           if(gameState=="preview" && !(selectedTower==towerOne)){
             var previewDisk = towerOne.location + " " + selectedTower.topDisk;
             $(previewDisk).toggle();
@@ -93,7 +95,6 @@ $(document).ready(function(){
         })
 
         $(".second").on("mouseenter", function(){
-          console.log(gameState)
           if(gameState=="preview" && !(selectedTower==towerTwo)){
             var previewDisk = towerTwo.location + " " + selectedTower.topDisk;
             $(previewDisk).toggle();
@@ -108,7 +109,6 @@ $(document).ready(function(){
         })
 
         $(".third").on("mouseenter", function(){
-          console.log(gameState)
           if(gameState=="preview" && !(selectedTower==towerThree)){
             var previewDisk = towerThree.location + " " + selectedTower.topDisk;
             $(previewDisk).toggle();
@@ -182,7 +182,6 @@ $(document).ready(function(){
       }
       //function to update tower objects after move
       function updateTowers(selectedTower, destinationTower){
-
         selectedTower.highlight = false;
         selectedTower.totalDisks--;
         destinationTower.totalDisks++;
