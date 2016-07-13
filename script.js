@@ -2,9 +2,33 @@ $(document).ready(function(){
   //starting disks at 4 since elements go 0-4
   var startingDisks=4;
   //each tower is its own object to constantly update info as game is played
-  var towerOne={location:".first", topDisk:".one", totalDisks:startingDisks, highlighted:false};
-  var towerTwo={location:".second ", topDisk:"", totalDisks: 0, highlighted:false};
-  var towerThree={location:".third", topdisk:"", totalDisks: 0, highlighted: false};
+  var towerOne={
+    location:".first",
+    topDisk:".one",
+    secondDisk:".two",
+    thirdDisk:".three",
+    fourthDisk:".four",
+    fifthDisk:".five",
+    totalDisks:startingDisks,
+    highlighted:false};
+  var towerTwo={
+    location:".second ",
+    topDisk:"",
+    secondDisk:"",
+    thirdDisk:"",
+    fourthDisk:"",
+    fifthDisk:"",
+    totalDisks: 0,
+    highlighted:false};
+  var towerThree={
+    location:".third",
+    topdisk:"",
+    secondDisk:"",
+    thirdDisk:"",
+    fourthDisk:"",
+    fifthDisk:"",
+    totalDisks: 0,
+    highlighted: false};
 //one click event for each tower, selectedTower set on click
   $(".first").on("click", function(){
     var selectedTower = towerOne;
@@ -72,7 +96,10 @@ function diskPreview(selectedTower, towerOne, towerTwo, towerThree){
       $(nextLocationOne).toggle();
       //event listener inside mouseenter, since this is when a click to move disk would occur
       $(this).on("click", function(){
-        diskMove(selectedTower.topDisk, nextLocationOne);
+        previewOff(nextLocationOne, nextLocationTwo);
+        diskMove(selectedTower, nextLocationOne);
+        $(this).off("click");
+        $(optionTwo).off("click");
       })
     })
     $(optionOne).on("mouseleave", function(){
@@ -82,7 +109,10 @@ function diskPreview(selectedTower, towerOne, towerTwo, towerThree){
     $(optionTwo).on("mouseenter", function(){
       $(nextLocationTwo).toggle();
       $(this).on("click", function(){
-        diskMove(selectedTower.topDisk, nextLocationTwo);
+        previewOff(nextLocationOne, nextLocationTwo);
+        diskMove(selectedTower, nextLocationTwo);
+        $(this).off("click");
+        $(optionOne).off("click");
       })
     })
     $(optionTwo).on("mouseleave", function(){
@@ -91,13 +121,38 @@ function diskPreview(selectedTower, towerOne, towerTwo, towerThree){
   }
   //if the selectedTower is not highlighted
   else {
-    //user must have decided agaisnt there choice, so turn off the preview event listeners
+    //user must have decided agaisnt their choice, so turn off the preview event listeners
     previewOff(nextLocationOne, nextLocationTwo);
   }
 }
-function diskMove(selectedTower, destination){
-  $(selectedTower.topDisk).toggle();
+function diskMove(selectedTower, destination, towerOne, towerTwo, towerThree){
+  var originalDisk = selectedTower.location + " " + selectedTower.topDisk;
+  //toggles the original disk off and removes highlight
+  $(originalDisk).toggle();
+  $(originalDisk).removeClass("highlight");
+  //reveals the moved disk by removing the preview css
   $(destination).removeClass("preview");
+  //tower objects updated: original loses disk and highlight
+  updateTowers(selectedTower, destination);
+}
+//function to update tower objects after move
+function updateTowers(selectedTower, destinationTower){
+
+  selectedTower.highlight = false;
+  selectedTower.totalDisks--;
+  destinationTower.totalDisks++;
+
+  selectedTower.fifthDisk = "";
+  selectedTower.fourthDisk = selectedTower.fifthDisk;
+  selectedTower.thirdDisk = selectedTower.fourthDisk;
+  selectedTower.secondDisk = selectedTower.thirdDisk;
+  selectedTower.topDisk = selectedTower.secondDisk;
+
+  destinationTower.fifthDisk = destinationTower.fourthDisk;
+  destinationTower.fourthDisk = destinationTower.thirdDisk;
+  destinationTower.thirdDisk = destinationTower.secondDisk;
+  destinationTower.secondDisk = destinationTower.topDisk;
+  destinationTower.topDisk=selectedTower.topDisk;
 }
 //function to turn off preview event listeners and remove the preview class from the optionOne and optionTwo divs
 function previewOff(nextLocationOne, nextLocationTwo){
@@ -108,6 +163,7 @@ function previewOff(nextLocationOne, nextLocationTwo){
   $(optionOne).off("mouseleave");
   $(optionTwo).off("mouseenter");
   $(optionTwo).off("mouseleave");
+
 }
 //function to change the number of disks available
 function difficulty(change, startingDisks){
