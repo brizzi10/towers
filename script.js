@@ -175,6 +175,7 @@ $(document).ready(function(){
           startingDisks =difficulty("down", startingDisks, towerOne, towerTwo, towerThree);
         })
         $(".reset").on("click", function(){
+          gameState="initial";
           startingDisks = 5;
           isLit = false;
           reset();
@@ -295,7 +296,6 @@ $(document).ready(function(){
       //resets the game board to its original state(all plates on leftmost tower)
       function reset(selectionTower, destinationTower){
         startingDisks = 5;
-        gameState = "initial";
         $(".disk").removeClass("highlight");
         $(".disk").removeClass("preview");
         $(".first .disk.one").show();
