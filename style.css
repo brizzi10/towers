@@ -12,16 +12,15 @@
   clear: both;
 }
 .header > .column{
-  height: 25px;
-}
-.score > .column{
   height: 50px;
+  background-color: black;
 }
 .game > .column{
-  height: 400px;
+  height: 500px;
 }
 .footer > .column{
-  height: 100px;
+  height: 50px;
+  background-color: black;
 }
 .column {
   position: relative;
@@ -146,6 +145,26 @@
   opacity: 0.5;
   border-color: rgb(35, 15, 93);
 }
-.button{
+.title{
+  font-weight:100;
+  font-size: 2.0em;
+  color: white;
+}
+input{
+  width: 200px;
+}
+.directions{
+  color: white;
+}
+.solve{
+
+}
+.reset{
+
+}
+.up{
+
+}
+.down{
 
 }

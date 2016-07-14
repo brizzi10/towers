@@ -11,9 +11,9 @@
   <div class="row header">
     <div class ="column column-1"> <div class="title">Towers of Hanoi</div></div>
   </div>
-  <div class="row score">
+  <!-- <div class="row score">
     <div class="column column-2"></div>
-  </div>
+  </div> -->
   <div class="row game">
     <div class="column first">
       <div class="pole"></div>
@@ -51,15 +51,17 @@
       <div class = "difficulty">
         <input class="up" type="button" value="Increase Disks" />
         <input class="down" type="button" value="Decrease Disks" />
-        <input class="solve" type="button" value="SOLVE!" />
-        <input class="reset" type="button" value="RESTART!" />
+
       </div>
     </div>
     <div class = "column column-7">
-      <div class = "moves">
-      </div>
+      <div class = "directions">Click a disk to highlight it, then click on the
+        destination to move. Click on a selected disk to undo the selection.
+        Larger disks cannot be placed atop a smaller counterpart. Move all disks to the 3rd column to win!</div>
     </div>
     <div class = "column column-8">
+      <input class="solve" type="button" value="SOLVE!" />
+      <input class="reset" type="button" value="RESTART!" />
       <div class = "solve">
       </div>
     </div>
