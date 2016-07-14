@@ -52,7 +52,7 @@ $(document).ready(function(){
           else if(gameState=="preview"){
             if(selectedTower.topDiskValue<towerOne.topDiskValue || towerOne.topDiskValue==0){
               destinationTower = towerOne;
-              diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
+              diskMove(selectedTower, destinationTower);
               gameState="initial";
               updateTowers(selectedTower, destinationTower);
               topDiskValue(towerOne);
@@ -76,7 +76,7 @@ $(document).ready(function(){
           else if(gameState=="preview"){
             if(selectedTower.topDiskValue<towerTwo.topDiskValue || towerTwo.topDiskValue==0){
               destinationTower = towerTwo;
-              diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
+              diskMove(selectedTower, destinationTower);
               gameState="initial";
               updateTowers(selectedTower, destinationTower);
               topDiskValue(towerOne);
@@ -100,7 +100,7 @@ $(document).ready(function(){
           else if(gameState=="preview"){
             if(selectedTower.topDiskValue<towerThree.topDiskValue || towerThree.topDiskValue==0){
               destinationTower = towerThree;
-              diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree);
+              diskMove(selectedTower, destinationTower);
               gameState="initial";
               updateTowers(selectedTower, destinationTower);
               topDiskValue(towerOne);
@@ -176,10 +176,12 @@ $(document).ready(function(){
         })
         $(".reset").on("click", function(){
           gameState="initial";
-          startingDisks = 5;
           isLit = false;
           reset();
           initialTowers(startingDisks, towerOne, towerTwo, towerThree);
+        })
+        $(".solve").on("click", function(){
+          hanoi(startingDisks, towerOne, towerThree, towerTwo);
         })
       })
 
@@ -219,7 +221,7 @@ $(document).ready(function(){
         $(previewDiskTwo).addClass("preview");
       }
 
-      function diskMove(selectedTower, destinationTower, towerOne, towerTwo, towerThree){
+      function diskMove(selectedTower, destinationTower){
         var originalDisk = selectedTower.location + " " + selectedTower.topDisk;
         var destinationDisk = destinationTower.location + " " + selectedTower.topDisk;
         //toggles the original disk off and removes highlight
@@ -343,4 +345,31 @@ $(document).ready(function(){
         towerThree.totalDisks=0;
         towerThree.highlighted=false;
         towerThree.topDiskValue=0;
+      }
+      function hanoi(totalDisks, source, destination, auxiliary){
+        console.log("hanoi");
+        if(totalDisks == 1){
+          hanoiMove(source, destination);
+        }
+        else{
+          hanoi(totalDisks-1, source, auxiliary, destination);
+          hanoiMove(source, destination);
+          hanoi(totalDisks-1, auxiliary, destination, source);
+        }
+      }
+      function hanoiMove(selectedTower, destinationTower){
+        var originalDisk = selectedTower.location + " " + selectedTower.topDisk;
+        var destinationDisk = destinationTower.location + " " + selectedTower.topDisk;
+        //toggles the original disk off and moved disk on
+        $(originalDisk).toggle();
+        $(destinationDisk).toggle();
+        updateTowers(selectedTower, destinationTower);
+      }
+      function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+          if ((new Date().getTime() - start) > milliseconds){
+            break;
+          }
+        }
       }
