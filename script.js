@@ -194,7 +194,7 @@ $(document).ready(function(){
     initialTowers(startingDisks, towerOne, towerTwo, towerThree);
   })
   $(".solve").on("click", function(){
-    if(towerOne.totalDisks==5){
+    if(towertTwo.totalDisks==0 && towerThree.totalDisks==0){
       hanoi(startingDisks, towerOne, towerThree, towerTwo);
     }
     else {
