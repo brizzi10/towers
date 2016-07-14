@@ -181,7 +181,7 @@ $(document).ready(function(){
           initialTowers(startingDisks, towerOne, towerTwo, towerThree);
         })
         $(".solve").on("click", function(){
-          hanoi(startingDisks, towerOne, towerThree, towerTwo);
+          hanoi(startingDisks, towerOne, towerThree, towerTwo, 1000);
         })
       })
 
@@ -346,30 +346,27 @@ $(document).ready(function(){
         towerThree.highlighted=false;
         towerThree.topDiskValue=0;
       }
-      function hanoi(totalDisks, source, destination, auxiliary){
-        console.log("hanoi");
+      function hanoi(totalDisks, source, destination, auxiliary, delay){
         if(totalDisks == 1){
-          hanoiMove(source, destination);
+          hanoiMove(source, destination, delay);
+          return delay+1000;
         }
         else{
-          hanoi(totalDisks-1, source, auxiliary, destination);
-          hanoiMove(source, destination);
-          hanoi(totalDisks-1, auxiliary, destination, source);
+          delay=hanoi(totalDisks-1, source, auxiliary, destination, delay);
+          hanoiMove(source, destination, delay);
+          delay+=1000;
+          delay=hanoi(totalDisks-1, auxiliary, destination, source, delay);
+          return delay;
         }
       }
-      function hanoiMove(selectedTower, destinationTower){
-        var originalDisk = selectedTower.location + " " + selectedTower.topDisk;
-        var destinationDisk = destinationTower.location + " " + selectedTower.topDisk;
-        //toggles the original disk off and moved disk on
-        $(originalDisk).toggle();
-        $(destinationDisk).toggle();
-        updateTowers(selectedTower, destinationTower);
-      }
-      function sleep(milliseconds) {
-        var start = new Date().getTime();
-        for (var i = 0; i < 1e7; i++) {
-          if ((new Date().getTime() - start) > milliseconds){
-            break;
-          }
-        }
+      function hanoiMove(selectedTower, destinationTower, delay){
+        setTimeout(function(){
+          var originalDisk = selectedTower.location + " " + selectedTower.topDisk;
+          var destinationDisk = destinationTower.location + " " + selectedTower.topDisk;
+          //toggles the original disk off and moved disk on
+          $(originalDisk).toggle();
+          $(destinationDisk).toggle();
+          updateTowers(selectedTower, destinationTower);
+        }, delay)
+
       }
