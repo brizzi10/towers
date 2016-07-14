@@ -109,7 +109,18 @@ $(document).ready(function(){
         topDiskValue(towerTwo);
         topDiskValue(towerThree);
         if(startingDisks == towerThree.totalDisks){
-          console.log("WINNER WOOOOOOO!");
+          if(startingDisks== 1 || startingDisks==2){
+            alert("You win... What a proud day for you and your family.");
+          }
+          else if(startingDisks==3){
+            alert("You win... Let's step up the difficulty a little bit");
+          }
+          else if(startingDisks==4){
+            alert("You win... Now try it on 5");
+          }
+          else if (startingDisks==5){
+            alert("You win, WOOOOOOOOOOOOO")
+          }
         }
       }
     }
@@ -183,7 +194,12 @@ $(document).ready(function(){
     initialTowers(startingDisks, towerOne, towerTwo, towerThree);
   })
   $(".solve").on("click", function(){
-    hanoi(startingDisks, towerOne, towerThree, towerTwo);
+    if(towerOne.totalDisks==5){
+      hanoi(startingDisks, towerOne, towerThree, towerTwo);
+    }
+    else {
+      alert("Place all disks in the leftmost tower (or click restart)");
+    }
   })
 })
 
@@ -280,7 +296,7 @@ function difficulty(change, startingDisks, towerOne, towerTwo, towerThree){
       return startingDisks;
     }
     else{
-      console.log("it only goes up to 5 disks, don't be a nerd");
+      alert("It only goes up to 5 disks, don't be a nerd");
       return startingDisks;
     }
   }
@@ -292,7 +308,7 @@ function difficulty(change, startingDisks, towerOne, towerTwo, towerThree){
       return startingDisks;
     }
     else{
-      console.log("Yes, I thought of this case. Nice try.");
+      alert("Yes, I thought of this case. Nice try.");
       return startingDisks;
     }
   }
