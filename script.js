@@ -1,9 +1,10 @@
+
 var hanoiDelay=1000;
 var startingDisks=5;
 $(document).ready(function(){
 
   var gameState="initial";
-
+//creating objects to store relevant info for each tower
   var towerOne={
     location:".first",
     topDisk:".one",
@@ -113,7 +114,7 @@ $(document).ready(function(){
       }
     }
   })
-
+//mouseenter and mouseleave listeners for each column
   $(".first").on("mouseenter", function(){
     if(gameState=="preview" && !(selectedTower==towerOne)){
       if(selectedTower.topDiskValue<towerOne.topDiskValue || towerOne.topDiskValue==0){
@@ -221,7 +222,7 @@ function diskPreview(selectedTower, towerOne, towerTwo, towerThree){
   $(previewDiskOne).addClass("preview");
   $(previewDiskTwo).addClass("preview");
 }
-
+//function that moves disks by toggling them on or off in the DOM
 function diskMove(selectedTower, destinationTower){
   var originalDisk = selectedTower.location + " " + selectedTower.topDisk;
   var destinationDisk = destinationTower.location + " " + selectedTower.topDisk;
@@ -248,6 +249,7 @@ function updateTowers(selectedTower, destinationTower){
   selectedTower.fourthDisk = selectedTower.fifthDisk;
   selectedTower.fifthDisk = "";
 }
+//the top disk needs a value so that it can be compared with other sizes when moving
 function topDiskValue(tower){
   if(tower.topDisk==".one"){
     tower.topDiskValue=1;
@@ -320,6 +322,7 @@ function reset(selectionTower, destinationTower){
   $(".third .disk.four").hide();
   $(".third .disk.five").hide();
 }
+//sets all towers to their initial states, used by the reset button
 function initialTowers(startingDisks, towerOne, towerTwo, towerThree){
   towerOne.topDisk=".one";
   towerOne.secondDisk=".two";
@@ -348,7 +351,7 @@ function initialTowers(startingDisks, towerOne, towerTwo, towerThree){
   towerThree.highlighted=false;
   towerThree.topDiskValue=0;
 }
-
+//recursive algorithm to solve the tower
 function hanoi(totalDisks, source, destination, auxiliary){
   if(totalDisks == 1){
     hanoiMove(source, destination);
@@ -359,6 +362,7 @@ function hanoi(totalDisks, source, destination, auxiliary){
     hanoi(totalDisks-1, auxiliary, destination, source);
   }
 }
+//nearly identical to diskMove, but uses setTimeout to demonstrate moves to user
 function hanoiMove(selectedTower, destinationTower){
   //waits the delay amount of time to do the specific move
   setTimeout(function(){
